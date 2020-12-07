@@ -45,3 +45,7 @@ In addition to the entry file, there will be a few scripts involved in this proj
  
  **Day 5**: Add BFS and DFS
  
+ ### Bonus
+ * Add animation
+ * Add sorting algorithm 
+ 
