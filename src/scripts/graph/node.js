@@ -7,24 +7,28 @@ export class Vertex {
         this.color = 'white';
         this.isStart = false;
         this.isEnd = false;
+        this.visited = false;
         this.prev = [];
         this.cost = Infinity;
-        this.brightness = 0;
         this.ctx = ctx;
     }
 
-    display(row, col){    
-        this.ctx.rect(width * (col - 1), height * row, width, height, 10);
+    display(ROW, col){    
+        this.ctx.rect(width * (col - 1), height * ROW, width, height, 10);
         this.ctx.fill(this.color);
         this.ctx.stroke (0);
     }
 
-    click(start){   
-        this.color = 'red';
-        if (!start && !this.end) {
-            this.start = true;
-        } 
-        this.color = 'red';       
+    click(start, cost){   
+        this.color = 'blue';
+        if (!start.length && !this.end) {
+            this.isStart = true;
+        } else {
+            this.isEnd = true;
+        }
+        this.color = 'blue';  
+        this.cost = cost[0] / 25;
+        console.log(this.cost);     
     }
 }
 
