@@ -1,4 +1,5 @@
 import "./styles/index.scss";
+import "./scripts/graph/sketch"
 // import { setup, draw } from "./scripts/graphs/view"
 
 
