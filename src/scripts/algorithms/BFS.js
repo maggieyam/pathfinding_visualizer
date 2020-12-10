@@ -1,5 +1,3 @@
-import PriorityQueue from '../utils/priorityQueue';
-
 const BFS = (p5, vertices, start, end) => {
     const queue = [];
     let [row, col] = start;
@@ -9,7 +7,6 @@ const BFS = (p5, vertices, start, end) => {
 
     while (queue.length) {
         let vertex = queue.shift();
-        // debugger;
         vertex.color = p5.color(`rgb(102, 0, 204)`);
         
         vertex.visited = true; 
@@ -47,9 +44,7 @@ const findNeighbors = (vertex, vertices, queue, p5) => {
         
         queue.push(neighbor);         
         neighbor.prev = vertex;
-        neighbor.color = p5.color('rgb(0, 255, 255)');
-        
-         
+        neighbor.color = p5.color('rgb(0, 255, 255)');        
     }      
     return null;
 }
