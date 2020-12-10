@@ -29,7 +29,7 @@ const heuristic = (vertex, end) => {
 
     let dx = Math.abs(end[0] - vertex.pos[0]);
     let dy = Math.abs(end[1] - vertex.pos[1]);
-    return dx + dy - (Math.sqrt(2) - 1) * Math.min(dx, dy);
+    return dx + dy + (Math.sqrt(2) - 2) * Math.min(dx, dy);
 }
 
 const findPath = (vertex) => {

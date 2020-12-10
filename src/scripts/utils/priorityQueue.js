@@ -5,6 +5,7 @@ class PriorityQueue extends Array {
     }
 
     enqueue(ele) {
+        if (this.queue.includes(ele)) return false;
         let isEnqueued = false;
         for (let i = 0; i < this.queue.length; i++) {
             const {cost, heuristic} = this.queue[i];
@@ -15,6 +16,7 @@ class PriorityQueue extends Array {
             }
         }
         if(!isEnqueued) this.queue.push(ele);
+        return true;
     }
 
     dequeue() {

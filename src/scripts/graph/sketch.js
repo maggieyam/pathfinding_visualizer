@@ -2,6 +2,7 @@ import p5 from 'p5';
 import { Vertex } from './node';
 import  Dijkstra  from "../algorithms/Dijkstra's";
 import Astar from "../algorithms/Astar"; 
+import BFS from '../algorithms/BFS';
 
 const ROW = 30;
 const COL = 51;
@@ -43,16 +44,17 @@ const sketch = (p5) => {
         p5.background(225);
         algorithmSel(p5);
         createVertex(p5);
+        // p5.mySelectEvent();
         // canvas.dragOver();
     }
 
     
     p5.mySelectEvent = () => {
         let algorithm = sel.value();
-        background(200);
+        p5.background(200);
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
-                return Dijkstra(p5, vertices, start);
+                return Dijkstra(p5, vertices, start, end);
             case 'A*':
                 return Astar(p5, vertices);
             // case 'BFS':
@@ -93,9 +95,15 @@ const algorithmType = (p5) => {
     let algorithm = sel.value();
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
-                return Dijkstra(p5, vertices, start, end);
+                Dijkstra(p5, vertices, start, end);
+                break;
             case 'A*':
-                return Astar(p5, vertices, start, end);
+                Astar(p5, vertices, start, end);
+                break
+            case 'BFS':
+                BFS(p5, vertices, start, end);
+                debugger
+                break
             default:
                 break;
         }

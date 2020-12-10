@@ -62,8 +62,8 @@ export class Vertex {
             // end = this.pos;  
             algorithmType(this.ctx);
         }
-        this.cost = cost[0] / 25;
-        console.log(this.cost);     
+        // this.cost = cost[0] / 25;
+        // console.log(this.cost);     
     }
 }
 
