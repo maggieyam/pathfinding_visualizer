@@ -1,8 +1,12 @@
 import { map1, map2 } from '../utils/mapUtil';
 const width = 20;
 const height = 20;
-const ROW = 60;
-const COL = 101;
+const ROW = 45;
+const COL = 90;
+// const ROW = 30;
+// const COL = 51;
+// const width = 30;
+// const height = 30;
 const POS = [
     [-1, 0],
     [0, -1],

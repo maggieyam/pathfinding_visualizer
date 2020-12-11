@@ -9,6 +9,10 @@ const ROW = 45;
 const COL = 90;
 const WIDTH = 20;
 const HEIGHT = 20;
+// const ROW = 30;
+// const COL = 51;
+// const WIDTH = 30;
+// const HEIGHT = 30;
 let vertices = [];
 let vertex;
 let start = [];
@@ -88,6 +92,7 @@ const sketch = (p5) => {
     p5.mousePressed = () => {
         const col = Math.floor(p5.mouseX / WIDTH);
         const row = Math.floor(p5.mouseY / HEIGHT);
+        // debugger;
         if ((col < 0 || row < 0) || col ===  COL - 1) return null;  
         const action = update(row, col); 
         if (action) vertices[row][col].click(action, algorithmType);

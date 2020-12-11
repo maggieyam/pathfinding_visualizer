@@ -35,7 +35,8 @@ const findPath = (vertex) => {
 
 const updateQueue = (vertex, vertices, pqueue, p5) => {
     vertex.edges.forEach(edge => {
-        let [row, col] = edge.end;          
+        let [row, col] = edge.end; 
+        // debugger         
         let neighbor = vertices[row][col];
         if (neighbor.visted) return; 
    
