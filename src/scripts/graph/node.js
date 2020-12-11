@@ -1,7 +1,7 @@
-const width = 30;
-const height = 30;
-const ROW = 30;
-const COL = 51;
+const width = 20;
+const height = 20;
+const ROW = 60;
+const COL = 101;
 const POS = [
     [-1, 0],
     [0, -1],
@@ -25,7 +25,10 @@ export class Vertex {
         this.ctx = ctx;
         this.edges = [];
         this.heuristic = 0;
+        this.setEdges();       
+    }
 
+    setEdges() {
         POS.forEach(pos => {
             let px = this.pos[0] + pos[0];
             let py = this.pos[1] + pos[1];
@@ -35,34 +38,52 @@ export class Vertex {
                 this.edges.push(edge);
                 // this.color = this.ctx.color(102, 0, 255);
                 let g = edge.weight * 20;
-                this.color = this.ctx.color(`rgb(255, ${g}, ${g})`);
-                if ( this.pos[1] < 5 || this.pos[0] < 5 || this.pos[1] > 44 || this.pos[0] > 25 ) {this.color = 'white';}
-                else if(this.pos[1] < 10 ||this.pos[0] < 10){this.color = 'pink'}
-                else if(this.pos[1] <15 || this.pos[0] > 20 || this.pos[1] > 38 || this.pos[0] < 15) {this.color = this.ctx.color(`rgb(255, ${g}, ${g})`)}
-                else {this.color = 'red'}
+                this.setMap(g);
             }
         })
-        
+    }
+
+    setMap(g) {
+        this.color = this.ctx.color(`rgb(255, ${g}, ${g})`);
+        if ( this.pos[1] < 5 || this.pos[0] < 5 || this.pos[1] > 44 || this.pos[0] > 25 ) {this.color = 'white';}
+        else if(this.pos[1] < 10 ||this.pos[0] < 10){this.color = 'pink'}
+        else if(this.pos[1] <15 || this.pos[0] > 20 || this.pos[1] > 38 || this.pos[0] < 15) {this.color = this.ctx.color(`rgb(255, ${g}, ${g})`)}
+        else {this.color = 'red'}
+    }
+
+    reset() {
+
+        this.color = 'white';
+        this.visited = false;
+        this.prev;
+        this.cost = Infinity;
+        this.edges = [];
+        this.heuristic = 0;
+        this.setEdges();   
     }
 
     display(row, col){    
-        this.ctx.rect(width * (col - 1), height * row, width, height, 10);
+        this.ctx.rect(width * (col - 1), height * row, width, height, 5);
         this.ctx.fill(this.color);
         this.ctx.stroke (0);
     }
 
-    click(action, cost, algorithmType){   
+    click(action, algorithmType){   
         // this.color = 'blue';
         if (action === 'start') {
             this.isStart = true;
             this.color = 'green';
-        } else {
+        } else if (action = 'end') {
             this.isEnd = true;
             this.color = 'blue';
             // end = this.pos;  
             algorithmType(this.ctx);
         }    
     }
+
+    // reset() {
+
+    // }
 }
 
 export class Edge {

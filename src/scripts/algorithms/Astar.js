@@ -3,7 +3,7 @@ import PriorityQueue from '../utils/priorityQueue';
 
 const Astar = (p5, vertices, start, end) => {
     const pqueue = new PriorityQueue();
-    debugger
+    
     let [row, col] = start;
     let startNode = vertices[row][col];
     startNode.cost = 0;
@@ -37,8 +37,8 @@ const findPath = (vertex) => {
     while (!node.isStart) {
         node.color = 'yellow';
         node = node.prev;
-        // ;
     }
+    node.color = 'yellow';
 }
 
 const updateQueue = (vertex, vertices, pqueue, p5, end) => {

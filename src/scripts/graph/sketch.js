@@ -5,16 +5,15 @@ import Astar from "../algorithms/Astar";
 import BFS from '../algorithms/BFS';
 import DFS from '../algorithms/DFS';
 
-const ROW = 30;
-const COL = 51;
-const WIDTH = 30;
-const HEIGHT = 30;
+const ROW = 60;
+const COL = 101;
+const WIDTH = 20;
+const HEIGHT = 20;
 let vertices = [];
 let vertex;
 let start = [];
 let end = [];
 let sel;
-let action = 'start';
 
 const createVertex = (p5) => {
     for (let i = 0; i < ROW; i++){
@@ -36,6 +35,8 @@ const algorithmSel = (p5) => {
     sel.option('A*');
     sel.option('BFS');
     sel.option('DFS');
+    sel.changed(p5.mySelectEvent);
+    
 }
 
 const sketch = (p5) => { 
@@ -45,8 +46,16 @@ const sketch = (p5) => {
         p5.background(225);
         algorithmSel(p5);
         createVertex(p5);
-        // p5.mySelectEvent();
+        const reset = p5.select('.reset');
+        reset.position(19,29);
+        reset.mousePressed(reload);
         // canvas.dragOver();
+    }
+
+    p5.mySelectEvent = () => {
+        console.log('ok');
+        resetGrid();
+        if (start.length && end.length) algorithmType(p5);
     }
 
     p5.draw = () => {
@@ -60,24 +69,22 @@ const sketch = (p5) => {
     p5.mousePressed = () => {
         const col = Math.floor(p5.mouseX / WIDTH);
         const row = Math.floor(p5.mouseY / HEIGHT);
-        const cost = p5.get(p5.mouseX, p5.mouseY);
-        if ((col < 0 || row < 0) || col ===  COL - 1) return null;
-        // removeEnd();
-        
-        update(row, col); 
-        vertices[row][col].click(action, cost, algorithmType);
-       
-        
-        // if (start && end) algorithmType(p5);  
+        if ((col < 0 || row < 0) || col ===  COL - 1) return null;  
+        const action = update(row, col); 
+        if (action) vertices[row][col].click(action, algorithmType);
     }
 
 }
 const newSketch = new p5(sketch);
 
+const reload = () => {
+    location.reload();
+}
 const algorithmType = (p5) => {
     let algorithm = sel.value();
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
+                // debugger
                 Dijkstra(p5, vertices, start, end);
                 break;
             case 'A*':
@@ -87,33 +94,44 @@ const algorithmType = (p5) => {
                 BFS(p5, vertices, start, end);
                 break
             case 'DFS':
-                debugger
                 DFS(p5, vertices, start, end);
                 break;
             default:
                 break;
         }
 }
+
 const update = (row, col) => {
     if (!start.length) {
         start = [row, col];
-    // } else if (start[0] === row && start[1] === col) {
-    //     start = [];
-    //     action = 'clear';
-    } else {       
+        return 'start';
+    } else if (vertices[row][col].isStart) {
+        const prevStart = vertices[row][col];
+        prevStart.isStart = false;
+        prevStart.color = 'white';
+        start = [];
+    } else {     
+        if (end.length) {
+            const prevEnd = vertices[end[0]][end[1]];
+            prevEnd.isEnd = false;
+            prevEnd.color = 'white';
+            resetGrid();
+        }
         end = [row, col];
-        action = 'end'
+        return 'end';
     }
    
 }
 
-
-const removeEnd = () => {
-    if (end.length) {
-        const [row, col] = end;
-        vertices[row][col].color = 'white';
+const resetGrid = () => {
+    if (!vertices.length) return null;
+    for (let i = 0; i < ROW; i++){
+        for (let j = 0; j < COL; j++) {
+            vertices[i][j].reset();
+        }
     }
 }
+
 
 
 

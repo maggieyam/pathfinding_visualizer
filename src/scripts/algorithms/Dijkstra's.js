@@ -29,8 +29,8 @@ const findPath = (vertex) => {
     while (!node.isStart) {
         node.color = 'yellow';
         node = node.prev;
-        // ;
     }
+    node.color = 'yellow';
 }
 
 const updateQueue = (vertex, vertices, pqueue, p5) => {

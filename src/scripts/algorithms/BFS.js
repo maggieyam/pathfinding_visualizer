@@ -19,14 +19,13 @@ const BFS = (p5, vertices, start, end) => {
 }
 
 const findPath = (vertex) => {
+    debugger
     let node = vertex;
     while (!node.isStart) {
+        debugger
         node.color = 'yellow';
         node = node.prev;
-        if(!node.prev) {
-            console.log('error');
-            break;
-        }
+        if(!node.prev) break;       
     }
     node.color = 'yellow';
 }

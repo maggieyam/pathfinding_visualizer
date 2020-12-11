@@ -16,7 +16,6 @@ const DFS = (p5, vertices, start, end) => {
             neighbor.prev = startNode;
             neighbor.color = p5.color('rgb(0, 255, 255)');
             if (DFS(p5, vertices, neighbor.pos, end)){
-                debugger
                 startNode.color = 'yellow';
                 return true;
             };
