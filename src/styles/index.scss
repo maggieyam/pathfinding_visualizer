@@ -1,10 +1,103 @@
-body {
+.nav, .nav-left, .nav-right {
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+    margin: 15px;
+    margin-left: 0px;
+    margin-right:0px;
+    height: 60px;
+}
+
+.nav {
+    justify-content: space-between;   
+}
+
+.nav-left {
+    justify-content: start;
+}
+
+.nav-right {
+    justify-content: end;
+}
+
+.material-icons{
+    color: rgb(111, 111, 241);
+    margin-left: 8px;
+}
+
+
+.reset, .about {
+    width: 90px;
+    height: 36px;
+    background-color: #efefef;
+    border: none;
+    border-radius: 34px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    color: #111111;
+    margin: 15px;
+}
+
+.reset:focus, .about:focus {
+    outline: none;
+}
+
+.about {
+    background-image: linear-gradient(45deg, #b96cec, red);
+    color: white;
+}
+
+select {
+    width: 170px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: #efefef;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-indent: 6px;
+    margin-right: 10px;
+    border: none;
+    box-shadow: 0 0 4pt 4pt #4a8ad4;
+}
+
+select:focus {
+    outline: none;
+}
+
+.select {
+    display: flex;
+    flex-direction: row;
+}
+
+i.fa {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 32px;
+    height: 32px;
+    margin: 10px;
 }
 
-i.material-icons {
+i.fa.fa-github {
+    color: black;
+}
+
+i.fa-linkedin {
+    border-radius: 10px;
+    background-color: #0A66c2;
+    color: white;
+}
+
+.fa-rocket {
     color: red;
-    font-size: 36px;
+    margin-right: 0px;
+}
+
+#logo {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    padding: 20px;
+    padding-left: 0px;
+    color: red;
 }

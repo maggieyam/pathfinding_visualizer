@@ -5,8 +5,8 @@ import Astar from "../algorithms/Astar";
 import BFS from '../algorithms/BFS';
 import DFS from '../algorithms/DFS';
 
-const ROW = 60;
-const COL = 101;
+const ROW = 45;
+const COL = 90;
 const WIDTH = 20;
 const HEIGHT = 20;
 let vertices = [];
@@ -26,35 +26,54 @@ const createVertex = (p5) => {
     }
 }
 
+const mapSel = (p5) => {
+    const mapSel = p5.createSelect();
+    mapSel.option('manhattan');
+    mapSel.option('Los Angeles');
+    mapSel.option('maze');
+    mapSel.changed(p5.mySelectEvent);
+    const nav = p5.select('.select');
+    sel.parent(nav);
+    // const nav = p5.select('.select');
+    // sel.parent(nav);
+
+}
+
 const algorithmSel = (p5) => {
-    p5.textAlign(p5.CENTER);
-    p5.background(200);
     sel = p5.createSelect();
-    sel.position(10, 10);
     sel.option('Dijkstra\'s algorithm');
     sel.option('A*');
     sel.option('BFS');
     sel.option('DFS');
     sel.changed(p5.mySelectEvent);
+    const nav = p5.select('.select');
+    sel.parent(nav);
     
+}
+
+const resetButton = (p5) => {
+    const reset = p5.select('.reset');
+        // reset.position(19,29);
+        reset.mousePressed(reload);
 }
 
 const sketch = (p5) => { 
     p5.setup = () => {    
-        // let location = document.querySelector('.location');
-        p5.createCanvas(1500, 900);
+        p5.createCanvas(1780, 900);
         p5.background(225);
         algorithmSel(p5);
+        mapSel(p5);
         createVertex(p5);
-        const reset = p5.select('.reset');
-        reset.position(19,29);
-        reset.mousePressed(reload);
+        resetButton(p5);
         // canvas.dragOver();
     }
 
     p5.mySelectEvent = () => {
-        console.log('ok');
         resetGrid();
+        const startPoint = start;
+        const endPoint = end;
+        start = startPoint;
+        end = endPoint;
         if (start.length && end.length) algorithmType(p5);
     }
 
@@ -77,6 +96,7 @@ const sketch = (p5) => {
 }
 const newSketch = new p5(sketch);
 
+
 const reload = () => {
     location.reload();
 }
@@ -84,7 +104,6 @@ const algorithmType = (p5) => {
     let algorithm = sel.value();
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
-                // debugger
                 Dijkstra(p5, vertices, start, end);
                 break;
             case 'A*':

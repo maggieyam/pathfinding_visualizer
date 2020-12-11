@@ -1,3 +1,4 @@
+import { map1, map2 } from '../utils/mapUtil';
 const width = 20;
 const height = 20;
 const ROW = 60;
@@ -38,21 +39,18 @@ export class Vertex {
                 this.edges.push(edge);
                 // this.color = this.ctx.color(102, 0, 255);
                 let g = edge.weight * 20;
-                this.setMap(g);
+                this.setMap('map1',g);
             }
         })
     }
 
-    setMap(g) {
+    setMap(map, g) {
         this.color = this.ctx.color(`rgb(255, ${g}, ${g})`);
-        if ( this.pos[1] < 5 || this.pos[0] < 5 || this.pos[1] > 44 || this.pos[0] > 25 ) {this.color = 'white';}
-        else if(this.pos[1] < 10 ||this.pos[0] < 10){this.color = 'pink'}
-        else if(this.pos[1] <15 || this.pos[0] > 20 || this.pos[1] > 38 || this.pos[0] < 15) {this.color = this.ctx.color(`rgb(255, ${g}, ${g})`)}
-        else {this.color = 'red'}
+        const [row, col] = this.pos;
+        map1(row, col, this, g);
     }
 
     reset() {
-
         this.color = 'white';
         this.visited = false;
         this.prev;
@@ -81,9 +79,6 @@ export class Vertex {
         }    
     }
 
-    // reset() {
-
-    // }
 }
 
 export class Edge {
