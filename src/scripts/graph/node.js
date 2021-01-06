@@ -1,12 +1,6 @@
 import { map1, map2 } from '../utils/mapUtil';
-const width = 20;
-const height = 20;
 const ROW = 45;
 const COL = 90;
-// const ROW = 30;
-// const COL = 51;
-// const width = 30;
-// const height = 30;
 const POS = [
     [-1, 0],
     [0, -1],
@@ -19,7 +13,7 @@ const POS = [
 ]
 
 export class Vertex {
-    constructor(pos, ctx) {
+    constructor(pos) {
         this.pos = pos;
         this.color = 'white';
         this.isStart = false;
@@ -27,7 +21,6 @@ export class Vertex {
         this.visited = false;
         this.prev;
         this.cost = Infinity;
-        this.ctx = ctx;
         this.edges = [];
         this.heuristic = 0;
         this.setEdges();       
@@ -43,16 +36,16 @@ export class Vertex {
                 this.edges.push(edge);
                 // this.color = this.ctx.color(102, 0, 255);
                 let g = edge.weight * 20;
-                this.setMap('map1',g);
+                // this.setMap('map1',g);
             }
         })
     }
 
-    setMap(map, g) {
-        this.color = this.ctx.color(`rgb(255, ${g}, ${g})`);
-        const [row, col] = this.pos;
-        map1(row, col, this, g);
-    }
+    // setMap(map, g) {
+    //     this.color = this.ctx.color(`rgb(255, ${g}, ${g})`);
+    //     const [row, col] = this.pos;
+    //     map1(row, col, this, g);
+    // }
 
     reset() {
         this.color = 'white';
@@ -64,14 +57,8 @@ export class Vertex {
         this.setEdges();   
     }
 
-    display(row, col){    
-        this.ctx.rect(width * (col - 1), height * row, width, height, 5);
-        this.ctx.fill(this.color);
-        this.ctx.stroke (0);
-    }
-
-    click(action, algorithmType){   
-        // this.color = 'blue';
+    click(action, algorithmType){   ;
+        
         if (action === 'start') {
             this.isStart = true;
             this.color = 'green';
@@ -82,6 +69,7 @@ export class Vertex {
             algorithmType(this.ctx);
         }    
     }
+
 
 }
 

@@ -1,42 +1,51 @@
 
-import PriorityQueue from '../utils/priorityQueue';
 
-const Dijkstra = (p5, vertices, start) => {
-    // return null;
+import PriorityQueue from '../utils/priorityQueue';
+// export  const visited = setTimeout(()=> vertex.color = 'hsl(180, 100%, 50%)';
+const Dijkstra = (vertices, start) => {
     const pqueue = new PriorityQueue();
     let [row, col] = start;
     let startNode = vertices[row][col];
     startNode.cost = 0;
     pqueue.enqueue(startNode);
+    
 
     while (!pqueue.isEmpty()) {
         let vertex = pqueue.dequeue();
-        vertex.color = p5.color(`rgb(102, 0, 204)`);
         vertex.visited = true;
+        
+        setTimeout(()=> vertex.color = 'hsl(180, 100%, 50%)', 0);
 
         if (vertex.isEnd) {
             findPath(vertex);
             break
         };
-        updateQueue(vertex, vertices, pqueue, p5);
+        updateQueue(vertex, vertices, pqueue);
     }
-
-
+    
 }
 
-const findPath = (vertex) => {
+
+const findPath = ( vertex ) => {
     let node = vertex;
+    let path = [];
+       
     while (!node.isStart) {
-        node.color = 'yellow';
+        path.unshift(node);
         node = node.prev;
     }
-    node.color = 'yellow';
+
+     path.map( vertex => {
+        setTimeout(() =>
+        vertex.color = 'yellow', 1000); 
+    })
+
 }
 
-const updateQueue = (vertex, vertices, pqueue, p5) => {
+const updateQueue = (vertex, vertices, pqueue,considered) => {
     vertex.edges.forEach(edge => {
         let [row, col] = edge.end; 
-        // debugger         
+        //          
         let neighbor = vertices[row][col];
         if (neighbor.visted) return; 
    
@@ -44,18 +53,18 @@ const updateQueue = (vertex, vertices, pqueue, p5) => {
         if (cost < neighbor.cost) {
             neighbor.cost = cost;
             neighbor.prev = vertex;
-            enqueueNeighbor(neighbor, pqueue);               
-            neighbor.color = p5.color('rgb(0, 255, 255)');
+            return enqueueNeighbor(neighbor, pqueue, considered);     
         }
     })
 }
-
 
 const enqueueNeighbor = (neighbor, pqueue) => {
     if (pqueue.includes(neighbor)){
         pqueue.remove(neighbor);
     }
     pqueue.enqueue(neighbor);
+    setTimeout(() => neighbor.color = 'rgb(102, 0, 204)', 0);
+    
 }
 
 export default Dijkstra;

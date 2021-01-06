@@ -1,4 +1,3 @@
-import p5 from 'p5';
 import { Vertex } from './node';
 import  Dijkstra  from "../algorithms/Dijkstra's";
 import Astar from "../algorithms/Astar"; 
@@ -18,30 +17,34 @@ let vertex;
 let start = [];
 let end = [];
 let sel;
+let location;
 
 const createVertex = (p5) => {
     for (let i = 0; i < ROW; i++){
         const arr = [];
         for (let j = 0; j < COL; j++) {
-            vertex = new Vertex([i, j], p5);
+            // let pos = [i, j];
+            let container = p5.createDiv('');
+            container.addClass(i);
+            vertex = new Vertex([i, j]);
             arr.push(vertex);
         }
         vertices.push(arr);
     }
 }
 
-const mapSel = (p5) => {
-    const mapSel = p5.createSelect();
-    mapSel.option('manhattan');
-    mapSel.option('Los Angeles');
-    mapSel.option('maze');
-    mapSel.changed(p5.mySelectEvent);
-    const nav = p5.select('.select');
-    sel.parent(nav);
-    // const nav = p5.select('.select');
-    // sel.parent(nav);
+// const mapSel = (p5) => {
+//     const mapSel = p5.createSelect();
+//     mapSel.option('manhattan');
+//     mapSel.option('Los Angeles');
+//     mapSel.option('maze');
+//     mapSel.changed(p5.mySelectEvent);
+//     const nav = p5.select('.select');
+//     sel.parent(nav);
+//     // const nav = p5.select('.select');
+//     // sel.parent(nav);
 
-}
+// }
 
 const algorithmSel = (p5) => {
     sel = p5.createSelect();
@@ -65,14 +68,23 @@ const sketch = (p5) => {
     p5.setup = () => {    
         p5.createCanvas(1780, 900);
         p5.background(225);
+        p5.frameRate(25);
         algorithmSel(p5);
-        mapSel(p5);
+        // mapSel(p5);
+        p5.frameRate(25);
         createVertex(p5);
         resetButton(p5);
+        // const ctx = canvas.getContext('2d');
+        // 
         // canvas.dragOver();
-    }
+        // canvas.drop(start);
 
+    }
+    p5.preload = () => {
+        location = p5.loadImage('src/asset/location.png')
+    }
     p5.mySelectEvent = () => {
+        clearTimeout(visited);
         resetGrid();
         const startPoint = start;
         const endPoint = end;
@@ -84,19 +96,29 @@ const sketch = (p5) => {
     p5.draw = () => {
         for (let i = 0; i < ROW; i++){
             for (let j = 0; j < COL; j++) {
-                vertices[i][j].display(i, j);
+                p5.fill(vertices[i][j].color);
+                p5.rect(WIDTH * j, HEIGHT * i, WIDTH, HEIGHT);
+                p5.stroke(0);
+                // vertices[i][j].display(i, j);
             }
         }
     }
 
+
+
     p5.mousePressed = () => {
         const col = Math.floor(p5.mouseX / WIDTH);
         const row = Math.floor(p5.mouseY / HEIGHT);
-        // debugger;
+        // ;
         if ((col < 0 || row < 0) || col ===  COL - 1) return null;  
         const action = update(row, col); 
         if (action) vertices[row][col].click(action, algorithmType);
+        if (action === 'end')  ;
     }
+
+    // p5.show = () => {
+    //     p5.image(location, col * WIDTH, row * HEIGHT, 30, 30)
+    // }
 
 }
 const newSketch = new p5(sketch);
@@ -105,11 +127,14 @@ const newSketch = new p5(sketch);
 const reload = () => {
     location.reload();
 }
+
+
 const algorithmType = (p5) => {
     let algorithm = sel.value();
+    resetGrid();
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
-                Dijkstra(p5, vertices, start, end);
+                Dijkstra(vertices, start);
                 break;
             case 'A*':
                 Astar(p5, vertices, start, end);
@@ -142,6 +167,7 @@ const update = (row, col) => {
             resetGrid();
         }
         end = [row, col];
+        
         return 'end';
     }
    

@@ -7,7 +7,7 @@ const DFS = (p5, vertices, start, end) => {
     }
 
     startNode.visted = true;
-    startNode.color = p5.color(`rgb(102, 0, 204)`);
+    setTimeout(() => startNode.color = `rgb(102, 0, 204)`, 200);
 
     for (const edge of startNode.edges) {
         let [row, col] = edge.end;    
@@ -17,6 +17,7 @@ const DFS = (p5, vertices, start, end) => {
             neighbor.color = p5.color('rgb(0, 255, 255)');
             if (DFS(p5, vertices, neighbor.pos, end)){
                 startNode.color = 'yellow';
+                
                 return true;
             };
         }
