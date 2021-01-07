@@ -5,9 +5,8 @@ const COL = 90;
 let considered = [];
 let visited = [];
 
-export const DFS = (vertices, start, end) => {
+const DFS = (vertices, start, end) => {
     let [row, col] = start;
-    // let considered = [];
     let startNode = vertices[row][col];
     considered.push(startNode);
     while (considered.length > 0) {

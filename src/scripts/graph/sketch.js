@@ -2,7 +2,7 @@ import { Vertex } from './node';
 import  Weighted  from "../algorithms/wighted";
 // import Astar from "../algorithms/Astar"; 
 import BFS from '../algorithms/BFS';
-import { DFS, animationDFS }from '../algorithms/DFS';
+import DFS from '../algorithms/DFS';
 import p5 from 'p5';
 
 
@@ -59,14 +59,15 @@ const resetButton = (p5) => {
     const reset = p5.select('.reset');
     reset.mousePressed(() => {
         resetGrid(p5);
+        vertices[start[0]][start[1]].isStart = false;
+        vertices[end[0]][end[1]].isEnd = false;
+        start = [];
+        end = [];
         p5.redraw();
     });
 }
 
-// const reload = p5 => {
-//     resetGrid(p5);
-//     p5.redraw();
-// }
+
 const sketch = (p5) => { 
     p5.setup = () => {    
         p5.createCanvas(1780, 820);
