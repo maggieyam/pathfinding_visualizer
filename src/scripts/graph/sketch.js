@@ -74,7 +74,7 @@ const sketch = (p5) => {
     }
 
     p5.preload = () => {
-        location = p5.loadImage("/src/asset/location2.jpg");
+        location = p5.loadImage("/src/asset/location.png");
     }
 
     p5.mySelectEvent = () => {
@@ -99,9 +99,9 @@ const sketch = (p5) => {
 
                 } else if (vertex.isEnd){
                     
-                    p5.fill(vertex.color);
-                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH ); 
-                    p5.image(location, WIDTH * j - 6, HEIGHT * i - 12, 34, 34)
+                    // p5.fill(vertex.color);
+                    // p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH ); 
+                    p5.image(location, WIDTH * j - 6, HEIGHT * i - 12, 30, 34)
                     
                     // p5.rect(WIDTH * j, HEIGHT * i, WIDTH, HEIGHT); 
                 } else if (vertex.color === 'white') {

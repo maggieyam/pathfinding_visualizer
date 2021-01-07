@@ -25,6 +25,7 @@ export class Vertex {
         this.visited = false;
         this.prev;
         this.cost = Infinity;
+        
         // this.ctx = ctx;
         this.edges = [];
         this.heuristic = 0;
