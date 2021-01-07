@@ -1,16 +1,17 @@
 
 const ROW = 41;
 const COL = 90;
-import { Vertex } from '../graph/node';
+
 import PriorityQueue from '../utils/priorityQueue';
-// export  const visited = setTimeout(()=> vertex.color = 'hsl(180, 100%, 50%)';
-const Dijkstra = (vertices, start) => {
+
+const Weighted = (vertices, start, end, type) => {
     const pqueue = new PriorityQueue();
     let [row, col] = start;
     let startNode = vertices[row][col];
-    debugger
-    // debugger
+    
     startNode.cost = 0;
+    // A*
+    if (type === 'Astar') startNode.heuristic = heuristic(startNode, end);
     pqueue.enqueue(startNode);
     
     let considered = [];
@@ -23,9 +24,16 @@ const Dijkstra = (vertices, start) => {
             setTimeout(() => findPath(vertex), 1000);
             break
         };
-        updateQueue(vertex, vertices, pqueue, considered);
+        updateQueue(vertex, vertices, pqueue, considered, type);
     }
     
+}
+
+const heuristic = (vertex, end) => {
+
+    let dx = Math.abs(end[0] - vertex.pos[0]);
+    let dy = Math.abs(end[1] - vertex.pos[1]);
+    return dx + dy + (Math.sqrt(2) - 2) * Math.min(dx, dy);
 }
 
 const animateNodes = (considered) => {
@@ -50,8 +58,7 @@ const findPath = ( vertex ) => {
     })
 }
 
-const animation = (vertex, count) => {
-    
+const animation = (vertex, count) => {    
     return setTimeout(()=> {
             if (vertex.color === 'white') {
                 vertex.color = 'rgb(74, 20, 140)';
@@ -67,13 +74,14 @@ const animation = (vertex, count) => {
             
             } else if (vertex.visited === true) {
                 vertex.color = "rgb(77, 208, 225)";
+                // vertex.color = "rgb(255, 233, 182)";
             } 
                  
     }, 100); 
 }
 
-const updateQueue = (vertex, vertices, pqueue, considered) => {
-    // debugger
+const updateQueue = (vertex, vertices, pqueue, considered, end, type) => {
+    // 
     vertex.edges.forEach(edge => {
         let [row, col] = edge.end; 
         if ((col < 0 || row < 0 || col > COL - 1 || row > ROW - 1) ) return null;       
@@ -86,6 +94,9 @@ const updateQueue = (vertex, vertices, pqueue, considered) => {
         if (cost < neighbor.cost) {
             neighbor.cost = cost;
             neighbor.prev = vertex;
+            if(type === 'Astar') {
+                neighbor.heuristic = heuristic(neighbor, end);
+            }
             return enqueueNeighbor(neighbor, pqueue);     
         }
     })
@@ -98,4 +109,4 @@ const enqueueNeighbor = (neighbor, pqueue ) => {
     pqueue.enqueue(neighbor); 
 }
 
-export default Dijkstra;
+export default Weighted;

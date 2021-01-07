@@ -2,10 +2,10 @@
 import PriorityQueue from '../utils/priorityQueue';
 
 const Astar = (p5, vertices, start, end) => {
-    const pqueue = new PriorityQueue();
-    
+    const pqueue = new PriorityQueue();   
     let [row, col] = start;
     let startNode = vertices[row][col];
+    
     startNode.cost = 0;
     startNode.heuristic = heuristic(startNode, end);
     pqueue.enqueue(startNode);

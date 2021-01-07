@@ -1,29 +1,25 @@
 import { Vertex } from './node';
-import  Dijkstra  from "../algorithms/Dijkstra's";
-import Astar from "../algorithms/Astar"; 
+import  Weighted  from "../algorithms/wighted";
+// import Astar from "../algorithms/Astar"; 
 import BFS from '../algorithms/BFS';
-import DFS from '../algorithms/DFS';
+import { DFS, animation }from '../algorithms/DFS';
 import p5 from 'p5';
 
 const ROW = 41;
 const COL = 90;
 const WIDTH = 20;
 const HEIGHT = 20;
-// const ROW = 30;
-// const COL = 51;
-// const WIDTH = 30;
-// const HEIGHT = 30;
 let vertices = [];
 let vertex;
 let start = [];
 let end = [];
 let sel;
+let location;
 
 const createVertex = (p5) => {
     for (let i = 0; i < ROW; i++){
         const arr = [];
         for (let j = 0; j < COL; j++) {
-            // let pos = [i, j];
             let container = p5.createDiv('');
             container.addClass(i);
             vertex = new Vertex([i, j], p5);
@@ -60,13 +56,15 @@ const algorithmSel = (p5) => {
 
 const resetButton = (p5) => {
     const reset = p5.select('.reset');
-        // reset.position(19,29);
         reset.mousePressed(reload);
 }
 
+const reload = () => {
+    window.location.reload();
+}
 const sketch = (p5) => { 
     p5.setup = () => {    
-        p5.createCanvas(1780, 900);
+        p5.createCanvas(1780, 820);
         p5.background(225);
         algorithmSel(p5);
         // mapSel(p5);
@@ -75,9 +73,11 @@ const sketch = (p5) => {
 
     }
 
+    p5.preload = () => {
+        location = p5.loadImage("/src/asset/location2.jpg");
+    }
+
     p5.mySelectEvent = () => {
-        reload();
-        resetGrid();
         const startPoint = start;
         const endPoint = end;
         start = startPoint;
@@ -90,18 +90,24 @@ const sketch = (p5) => {
             for (let j = 0; j < COL; j++) {
                 const vertex = vertices[i][j];
                 if (vertex.isStart){
-                    p5.fill('green');
-                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH * 1.5); 
-                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH); 
-
-                    // p5.stroke(0);
-                } else if (vertex.isEnd){
-                    p5.fill('red');
+                    p5.fill(vertex.color);
                     p5.rect(WIDTH * j, HEIGHT * i, WIDTH, HEIGHT); 
+                    p5.fill('rgb(255, 61, 0)');
+                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH ); 
+                    p5.fill('rgb(192, 0, 0)');
+                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH * 0.5); 
+
+                } else if (vertex.isEnd){
+                    
+                    p5.fill(vertex.color);
+                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH ); 
+                    p5.image(location, WIDTH * j - 6, HEIGHT * i - 12, 34, 34)
+                    
+                    // p5.rect(WIDTH * j, HEIGHT * i, WIDTH, HEIGHT); 
                 } else if (vertex.color === 'white') {
                     p5.fill(vertex.color);
                     p5.rect(WIDTH * j, HEIGHT * i, WIDTH, HEIGHT);             
-                    p5.stroke(0);
+                    p5.stroke(`rgb(179, 229, 252)`);
                 } else if (vertex.color === 'rgb(74, 20, 140)') {
                     p5.fill(vertex.color);
                     p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH / 4);
@@ -115,6 +121,7 @@ const sketch = (p5) => {
                     p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH / 1.25);
                     p5.stroke(244, 247,250);
                 } else if (vertex.color === 'rgb(83, 109, 254)' 
+                    // || vertex.color === "rgb(255, 128, 178)"
                     || vertex.color === "rgb(77, 208, 225)"
                     || vertex.color === "yellow") {
                     p5.fill(vertex.color);
@@ -133,7 +140,7 @@ const sketch = (p5) => {
 
         // ;
         if ((col < 0 || row < 0 || col > COL - 1 || row > ROW - 1) ) return null;  
-        update(row, col); 
+        update(row, col, p5); 
         // if (action) vertices[row][col].click(action, algorithmType);
     }
 
@@ -141,38 +148,37 @@ const sketch = (p5) => {
 const newSketch = new p5(sketch);
 
 
-const reload = () => {
-    location.reload();
-}
 
-const algorithmType = () => {
+
+const algorithmType = (p5) => {
     let algorithm = sel.value();
-    // resetGrid();
+    resetGrid(p5);
+    
+    p5.redraw();
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
-                Dijkstra(vertices, start);
+                Weighted(vertices, start, end, 'Dijkstra');
                 break;
             case 'A*':
-                Astar(vertices, start, end);
+                Weighted(vertices, start, end, 'Astar');
                 break
             case 'BFS':
-                BFS(vertices, start, end);
+                BFS(vertices, start);
                 break
             case 'DFS':
                 DFS(vertices, start, end);
+                animation();
                 break;
             default:
                 break;
         }
 }
 
-const update = (row, col) => {
+const update = (row, col, p5) => {
     const vertex = vertices[row][col];
     if (!start.length) {
         start = [row, col];
         vertex.isStart = true;
-        vertex.color = 'green';
-        debugger
 
     } else if (vertex.isStart) {
         const prevStart = vertex;
@@ -185,22 +191,23 @@ const update = (row, col) => {
             const prevEnd = vertices[end[0]][end[1]];
             prevEnd.isEnd = false;
             prevEnd.color = 'white';
-            resetGrid();
+            p5.redraw();
         }
         end = [row, col];
         vertex.isEnd = true;
         vertex.color = 'red';
         
-        setTimeout(algorithmType, 50);
+        setTimeout(()=> algorithmType(p5), 100);
     }
    
 }
 
-const resetGrid = () => {
+const resetGrid = (p5) => {
     if (!vertices.length) return null;
     for (let i = 0; i < ROW; i++){
         for (let j = 0; j < COL; j++) {
             vertices[i][j].reset();
+            // p5.redraw();
         }
     }
 }
