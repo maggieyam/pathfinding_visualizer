@@ -54,7 +54,7 @@ const findPath = ( vertex, count ) => {
     path.map( vertex => {
         setTimeout(() => {           
             vertex.color = 'yellow'; 
-        }, 50);
+        }, 500);
     })
 }
 
