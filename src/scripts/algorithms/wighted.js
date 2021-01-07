@@ -21,10 +21,10 @@ const Weighted = (vertices, start, end, type) => {
         vertex.visited = true;
         if (vertex.isEnd) {
             animateNodes(considered);
-            setTimeout(() => findPath(vertex), 1000);
+            findPath(vertex, considered.length);
             break
         };
-        updateQueue(vertex, vertices, pqueue, considered, type);
+        updateQueue(vertex, vertices, pqueue, considered, end, type);
     }
     
 }
@@ -42,7 +42,7 @@ const animateNodes = (considered) => {
     }
 }
 
-const findPath = ( vertex ) => {
+const findPath = ( vertex, count ) => {
     let node = vertex;
     let path = [];
        
@@ -54,25 +54,25 @@ const findPath = ( vertex ) => {
     path.map( vertex => {
         setTimeout(() => {           
             vertex.color = 'yellow'; 
-        }, 10);
+        }, 50);
     })
 }
 
 const animation = (vertex, count) => {    
     return setTimeout(()=> {
             if (vertex.color === 'white') {
-                vertex.color = 'rgb(74, 20, 140)';
+                // vertex.color = 'rgb(74, 20, 140)';
                 
-            } else if (vertex.color === 'rgb(74, 20, 140)') {
-                vertex.color = 'rgb(94, 53, 177)';
+            // } else if (vertex.color === 'rgb(74, 20, 140)') {
+                // vertex.color = 'rgb(94, 53, 177)';
 
-            } else if (vertex.color === 'rgb(94, 53, 177)') {
-                vertex.color = 'rgb(21, 101, 192)';
+            // } else if (vertex.color === 'rgb(94, 53, 177)') {
+                // vertex.color = 'rgb(21, 101, 192)';
 
-            } else if (vertex.color === 'rgb(21, 101, 192)'){
+            // } else if (vertex.color === 'rgb(21, 101, 192)'){
                 vertex.color = 'rgb(83, 109, 254)';
             
-            } else if (vertex.visited === true) {
+            } else if (vertex.visited) {
                 vertex.color = "rgb(77, 208, 225)";
                 // vertex.color = "rgb(255, 233, 182)";
             } 
@@ -80,14 +80,15 @@ const animation = (vertex, count) => {
     }, 100); 
 }
 
-const updateQueue = (vertex, vertices, pqueue, considered, end, type) => {
-    // 
-    vertex.edges.forEach(edge => {
+const updateQueue = (vertex, vertices, pqueue, considered, end, type) => { 
+    for(let edge of vertex.edges) {
         let [row, col] = edge.end; 
-        if ((col < 0 || row < 0 || col > COL - 1 || row > ROW - 1) ) return null;       
-        let neighbor;
-        if(vertices[row][col]) neighbor = vertices[row][col];
-        if (neighbor.visted) return; 
+        let neighbor = 0;
+
+        neighbor = vertices[row][col];
+        // if(neighbor.visited) continue;
+
+        if (neighbor.visted || pqueue.includes(neighbor)) continue; 
         considered.push(neighbor);
         
         let cost = edge.weight + vertex.cost;
@@ -97,16 +98,10 @@ const updateQueue = (vertex, vertices, pqueue, considered, end, type) => {
             if(type === 'Astar') {
                 neighbor.heuristic = heuristic(neighbor, end);
             }
-            return enqueueNeighbor(neighbor, pqueue);     
+            pqueue.enqueue(neighbor);     
         }
-    })
+    }
 }
 
-const enqueueNeighbor = (neighbor, pqueue ) => {
-    if (pqueue.includes(neighbor)){
-        pqueue.remove(neighbor);
-    }
-    pqueue.enqueue(neighbor); 
-}
 
 export default Weighted;

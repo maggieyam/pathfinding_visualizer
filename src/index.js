@@ -25,6 +25,5 @@ import "./scripts/graph/sketch"
 //         stroke (0);
 //     }
 //   }
-//   console.log(grid);
 // }
 // })

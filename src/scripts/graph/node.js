@@ -3,8 +3,8 @@
 import { map1, map2 } from '../utils/mapUtil';
 const width = 20;
 const height = 20;
-const ROW = 60;
-const COL = 101;
+const ROW = 41;
+const COL = 90;
 const POS = [
     [-1, 0],
     [0, -1],
@@ -36,7 +36,7 @@ export class Vertex {
         POS.forEach(pos => {
             let px = this.pos[0] + pos[0];
             let py = this.pos[1] + pos[1];
-            const inBound = px >= 0 && px < ROW &&  py >= 0 && py < COL;
+            const inBound = px >= 0 && px < ROW - 1 &&  py >= 0 && py < COL - 1;
             if (inBound ) {
                 let edge = new Edge(this.pos, [px, py]);
                 this.edges.push(edge);
@@ -60,7 +60,8 @@ export class Vertex {
         this.cost = Infinity;
         this.edges = [];
         this.heuristic = 0;
-        this.setEdges();   
+        this.setEdges();  
+        this.order = 0; 
     }
 
     // display(row, col){    

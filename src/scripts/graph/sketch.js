@@ -2,8 +2,9 @@ import { Vertex } from './node';
 import  Weighted  from "../algorithms/wighted";
 // import Astar from "../algorithms/Astar"; 
 import BFS from '../algorithms/BFS';
-import { DFS, animation }from '../algorithms/DFS';
+import { DFS, animationDFS }from '../algorithms/DFS';
 import p5 from 'p5';
+
 
 const ROW = 41;
 const COL = 90;
@@ -56,12 +57,16 @@ const algorithmSel = (p5) => {
 
 const resetButton = (p5) => {
     const reset = p5.select('.reset');
-        reset.mousePressed(reload);
+    reset.mousePressed(() => {
+        resetGrid(p5);
+        p5.redraw();
+    });
 }
 
-const reload = () => {
-    window.location.reload();
-}
+// const reload = p5 => {
+//     resetGrid(p5);
+//     p5.redraw();
+// }
 const sketch = (p5) => { 
     p5.setup = () => {    
         p5.createCanvas(1780, 820);
@@ -69,7 +74,7 @@ const sketch = (p5) => {
         algorithmSel(p5);
         // mapSel(p5);
         createVertex(p5);
-        resetButton(p5);
+        resetButton(p5);     
 
     }
 
@@ -153,7 +158,6 @@ const newSketch = new p5(sketch);
 const algorithmType = (p5) => {
     let algorithm = sel.value();
     resetGrid(p5);
-    
     p5.redraw();
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
@@ -167,7 +171,6 @@ const algorithmType = (p5) => {
                 break
             case 'DFS':
                 DFS(vertices, start, end);
-                animation();
                 break;
             default:
                 break;
@@ -191,11 +194,10 @@ const update = (row, col, p5) => {
             const prevEnd = vertices[end[0]][end[1]];
             prevEnd.isEnd = false;
             prevEnd.color = 'white';
-            p5.redraw();
+            
         }
         end = [row, col];
         vertex.isEnd = true;
-        vertex.color = 'red';
         
         setTimeout(()=> algorithmType(p5), 100);
     }
