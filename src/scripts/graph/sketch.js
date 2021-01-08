@@ -6,10 +6,10 @@ import DFS from '../algorithms/DFS';
 import p5 from 'p5';
 
 
-const ROW = 41;
-const COL = 90;
-const WIDTH = 20;
-const HEIGHT = 20;
+const ROW = 32;
+const COL = 71;
+const WIDTH = 25;
+const HEIGHT = 25;
 let vertices = [];
 let vertex;
 let start = [];
@@ -48,7 +48,7 @@ const createVertex = (p5) => {
 const resetButton = (p5) => {
     const reset = p5.select('.reset');
     reset.mousePressed(() => {
-        resetGrid(p5);
+        resetGrid();
         p5.redraw();
         start = [];
         end = [];
@@ -58,7 +58,7 @@ const resetButton = (p5) => {
 
 const sketch = (p5) => { 
     p5.setup = () => {    
-        p5.createCanvas(1780, 820);
+        p5.createCanvas(1775, 800);
         p5.background(225);
        
         // DropDown on nav
@@ -213,7 +213,7 @@ const update = (row, col, p5) => {
    
 }
 
-const resetGrid = (p5) => {
+const resetGrid = () => {
     if (!vertices.length) return null;
     for (let i = 0; i < ROW; i++){
         for (let j = 0; j < COL; j++) {

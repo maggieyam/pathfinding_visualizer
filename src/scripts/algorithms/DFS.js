@@ -1,7 +1,7 @@
 import { Vertex } from "../graph/node";
 
-const ROW = 41;
-const COL = 90;
+const ROW = 32;
+const COL = 71;
 let considered = [];
 let visited = [];
 

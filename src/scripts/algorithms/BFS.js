@@ -11,24 +11,31 @@ const BFS = (vertices, start) => {
         let vertex = queue.shift();   
         vertex.visited = true; 
        
-        let destination = findNeighbors(vertex, vertices, queue, considered);      
+        let destination = findNeighbors(vertex, vertices, queue, considered);
+        let count = 0;      
         if(destination){
             for (let vertex of considered) {
-                setTimeout(() => vertex.color = "rgb(77, 208, 225)", 500);
+                setTimeout(() => vertex.color = "rgb(77, 208, 225)", 10 * count);
+                count += 1;
             }
-            setTimeout(() => findPath(destination), 600);
+            findPath(destination, considered.length);
             break;
         };
     }
 }
 
-const findPath = (vertex) => {   
+const findPath = (vertex, count) => {   
+    let path = [];
     let node = vertex;
     while (!node.isStart) {      
-        node.color = 'yellow';
         node = node.prev;
+        path.unshift(node);
         if(!node.prev) break;       
     }
+
+    path.map(vertex => {
+        setTimeout(() => vertex.color = 'yellow', count * 10)
+    })
 
 }
 

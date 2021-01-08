@@ -1,6 +1,6 @@
 
-const ROW = 41;
-const COL = 90;
+const ROW = 32;
+const COL = 71;
 
 import PriorityQueue from '../utils/priorityQueue';
 
@@ -54,7 +54,7 @@ const findPath = ( vertex, count ) => {
     path.map( vertex => {
         setTimeout(() => {           
             vertex.color = 'yellow'; 
-        }, 500);
+        }, 1 * count);
     })
 }
 
@@ -77,7 +77,7 @@ const animation = (vertex, count) => {
                 // vertex.color = "rgb(255, 233, 182)";
             } 
                  
-    }, 100); 
+    }, 1 * count); 
 }
 
 const updateQueue = (vertex, vertices, pqueue, considered, end, type) => { 
