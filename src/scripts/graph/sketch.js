@@ -3,7 +3,6 @@ import  Weighted  from "../algorithms/wighted";
 // import Astar from "../algorithms/Astar"; 
 import BFS from '../algorithms/BFS';
 import DFS from '../algorithms/DFS';
-import p5 from 'p5';
 
 
 const ROW = 32;
