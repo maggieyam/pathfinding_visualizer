@@ -16,7 +16,8 @@ let start = [];
 let end = [];
 let sel;
 let location;
-
+let content;
+let disable = true;
 const createVertex = (p5) => {
     for (let i = 0; i < ROW; i++){
         const arr = [];
@@ -43,27 +44,14 @@ const createVertex = (p5) => {
 
 // }
 
-const algorithmSel = (p5) => {
-    sel = p5.createSelect();
-    sel.option('Dijkstra\'s algorithm');
-    sel.option('A*');
-    sel.option('BFS');
-    sel.option('DFS');
-    sel.changed(p5.mySelectEvent);
-    const nav = p5.select('.select');
-    sel.parent(nav);
-    
-}
 
 const resetButton = (p5) => {
     const reset = p5.select('.reset');
     reset.mousePressed(() => {
         resetGrid(p5);
-        vertices[start[0]][start[1]].isStart = false;
-        vertices[end[0]][end[1]].isEnd = false;
+        p5.redraw();
         start = [];
         end = [];
-        p5.redraw();
     });
 }
 
@@ -72,24 +60,42 @@ const sketch = (p5) => {
     p5.setup = () => {    
         p5.createCanvas(1780, 820);
         p5.background(225);
-        algorithmSel(p5);
+       
+        // DropDown on nav
+        sel = p5.select('#algorithm');
+        // sel.changed(p5.mySelectEvent);
+
+        //start game button
+        let start = p5.select('#start');    
+        start.mousePressed(() => startGame(p5));
+        
+        let about = p5.select('.about');
+        content = p5.select('#about-content');
+        let done = p5.select('.done')
+        about.mousePressed(() => {
+            content.show();
+            disable = true;
+        });
+        done.mousePressed(() => {
+            content.hide();
+            setTimeout(() => disable = false, 100);
+        });
         // mapSel(p5);
         createVertex(p5);
-        resetButton(p5);     
-
+        resetButton(p5);  
     }
 
     p5.preload = () => {
         location = p5.loadImage("/src/asset/location.png");
     }
 
-    p5.mySelectEvent = () => {
-        const startPoint = start;
-        const endPoint = end;
-        start = startPoint;
-        end = endPoint;
-        if (start.length && end.length) algorithmType(p5);
-    }
+    // p5.mySelectEvent = () => {
+    //     const startPoint = start;
+    //     const endPoint = end;
+    //     start = startPoint;
+    //     end = endPoint;
+    //     // if (start.length && end.length) algorithmType(p5);
+    // }
 
     p5.draw = () => {
         for (let i = 0; i < ROW; i++){
@@ -138,8 +144,6 @@ const sketch = (p5) => {
         }
     }
 
-
-
     p5.mousePressed = () => {
         const col = Math.floor(p5.mouseX / WIDTH);
         const row = Math.floor(p5.mouseY / HEIGHT);
@@ -153,13 +157,19 @@ const sketch = (p5) => {
 }
 const newSketch = new p5(sketch);
 
-
+const startGame = (p5) => {   
+    if (start.length 
+        && end.length 
+        && sel.value() != '--Choose an Algrorithm-- ') {
+        algorithmType(p5);
+    }
+}
 
 
 const algorithmType = (p5) => {
     let algorithm = sel.value();
-    resetGrid(p5);
-    p5.redraw();
+    // resetGrid(p5);
+    // p5.redraw();
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
                 Weighted(vertices, start, end, 'Dijkstra');
@@ -179,6 +189,7 @@ const algorithmType = (p5) => {
 }
 
 const update = (row, col, p5) => {
+    if (disable) return null;
     const vertex = vertices[row][col];
     if (!start.length) {
         start = [row, col];
@@ -194,13 +205,10 @@ const update = (row, col, p5) => {
         if (end.length) {
             const prevEnd = vertices[end[0]][end[1]];
             prevEnd.isEnd = false;
-            prevEnd.color = 'white';
-            
+            prevEnd.color = 'white';          
         }
         end = [row, col];
         vertex.isEnd = true;
-        
-        setTimeout(()=> algorithmType(p5), 100);
     }
    
 }

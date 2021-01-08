@@ -61,7 +61,9 @@ export class Vertex {
         this.edges = [];
         this.heuristic = 0;
         this.setEdges();  
-        this.order = 0; 
+        this.isStart = false;
+        this.isEnd = false; 
+
     }
 
     // display(row, col){    

@@ -1,4 +1,6 @@
 import "./styles/index.scss";
+import "./styles/reset.scss";
+import "./styles/about.scss";
 import "./scripts/graph/sketch"
 // import { setup, draw } from "./scripts/graphs/view"
 
