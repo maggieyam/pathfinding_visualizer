@@ -1,16 +1,14 @@
-import { Vertex } from "../graph/node";
 
-const ROW = 32;
-const COL = 71;
+
 let considered = [];
 let visited = [];
-
 const DFS = (vertices, start, end) => {
     let [row, col] = start;
     let startNode = vertices[row][col];
     considered.push(startNode);
     while (considered.length > 0) {
         let vertex = considered.pop();
+        visited.push(vertex);
         if (!vertex.visited) {
             vertex.visited = true;
             
@@ -21,8 +19,13 @@ const DFS = (vertices, start, end) => {
             let [row, col] = edge.end;  
             let neighbor = vertices[row][col];
             if (!neighbor.visited) considered.push(neighbor);
-            setTimeout(() => vertex.color = 'yellow', 7 * (vertex.edges.length - i));
+            
             if(neighbor.isEnd) {
+                let count = 0;
+                visited.map(vertex => {
+                    setTimeout(() => vertex.color = 'yellow', 10 * count);
+                    count += 1;
+                })
                 considered = [];
                 break;
             }
