@@ -1,6 +1,5 @@
 
-const ROW = 32;
-const COL = 71;
+
 
 import PriorityQueue from '../utils/priorityQueue';
 
@@ -15,10 +14,10 @@ const Weighted = (vertices, start, end, type) => {
     pqueue.enqueue(startNode);
     
     let considered = [];
-
     while (!pqueue.isEmpty()) {
         let vertex = pqueue.dequeue();
         vertex.visited = true;
+         
         if (vertex.isEnd) {
             animateNodes(considered);
             findPath(vertex, considered.length);
@@ -82,15 +81,12 @@ const animation = (vertex, count) => {
 
 const updateQueue = (vertex, vertices, pqueue, considered, end, type) => { 
     for(let edge of vertex.edges) {
-        let [row, col] = edge.end; 
-        let neighbor = 0;
-
-        neighbor = vertices[row][col];
+        let [row, col] = edge.end;  
+        let neighbor = vertices[row][col];
         // if(neighbor.visited) continue;
 
         if (neighbor.visted || pqueue.includes(neighbor)) continue; 
         considered.push(neighbor);
-        
         let cost = edge.weight + vertex.cost;
         if (cost < neighbor.cost) {
             neighbor.cost = cost;

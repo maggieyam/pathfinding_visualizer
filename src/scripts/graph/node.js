@@ -34,7 +34,7 @@ export class Vertex {
         POS.forEach(pos => {
             let px = this.pos[0] + pos[0];
             let py = this.pos[1] + pos[1];
-            const inBound = px >= 0 && px < ROW - 1 &&  py >= 0 && py < COL - 1;
+            const inBound = px >= 0 && px < ROW &&  py >= 0 && py < COL;
             if (inBound ) {
                 let edge = new Edge(this.pos, [px, py]);
                 this.edges.push(edge);

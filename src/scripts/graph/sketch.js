@@ -20,7 +20,7 @@ let disable = true;
 const createVertex = (p5) => {
     for (let i = 0; i < ROW; i++){
         const arr = [];
-        for (let j = 0; j < COL; j++) {
+        for (let j = 0; j < COL ; j++) {
             let container = p5.createDiv('');
             container.addClass(i);
             vertex = new Vertex([i, j], p5);
@@ -62,7 +62,7 @@ const sketch = (p5) => {
        
         // DropDown on nav
         sel = p5.select('#algorithm');
-        // sel.changed(p5.mySelectEvent);
+        sel.changed(p5.mySelectEvent);
 
         //start game button
         let start = p5.select('#start');    
@@ -85,16 +85,17 @@ const sketch = (p5) => {
     }
 
     p5.preload = () => {
-        location = p5.loadImage("/pathfinding_visualizer/src/asset/location.png");
+        location = p5.loadImage("/src/asset/location.png");
+        // location = p5.loadImage("/pathfinding_visualizer/src/asset/location.png");
     }
 
-    // p5.mySelectEvent = () => {
-    //     const startPoint = start;
-    //     const endPoint = end;
-    //     start = startPoint;
-    //     end = endPoint;
-    //     // if (start.length && end.length) algorithmType(p5);
-    // }
+    p5.mySelectEvent = () => {
+        resetGrid();
+        p5.redraw();
+        vertices[start[0]][start[1]].isStart = true;
+        vertices[end[0]][end[1]].isEnd = true;
+        // if (start.length && end.length) algorithmType(p5);
+    }
 
     p5.draw = () => {
         for (let i = 0; i < ROW; i++){
@@ -147,28 +148,24 @@ const sketch = (p5) => {
         const col = Math.floor(p5.mouseX / WIDTH);
         const row = Math.floor(p5.mouseY / HEIGHT);
 
-        // ;
-        if ((col < 0 || row < 0 || col > COL - 1 || row > ROW - 1) ) return null;  
+        if ((col < 0 || row < 0 || col >= COL  || row >= ROW ) ) return null;  
         update(row, col, p5); 
-        // if (action) vertices[row][col].click(action, algorithmType);
     }
 
 }
 const newSketch = new p5(sketch);
 
 const startGame = (p5) => {   
-    if (start.length 
-        && end.length 
-        && sel.value() != '--Choose an Algrorithm-- ') {
-        algorithmType(p5);
-    }
+    if (start.length && end.length ) algorithmType(p5);
+
 }
 
 
 const algorithmType = (p5) => {
     let algorithm = sel.value();
-    // resetGrid(p5);
-    // p5.redraw();
+    // let startPoint = vertices[start[0]][start[1]];
+    // let endPoint = vertices[end[0]][end[1]];
+
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
                 Weighted(vertices, start, end, 'Dijkstra');
@@ -217,7 +214,6 @@ const resetGrid = () => {
     for (let i = 0; i < ROW; i++){
         for (let j = 0; j < COL; j++) {
             vertices[i][j].reset();
-            // p5.redraw();
         }
     }
 }
