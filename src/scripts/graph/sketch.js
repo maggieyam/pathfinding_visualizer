@@ -85,7 +85,7 @@ const sketch = (p5) => {
     }
 
     p5.preload = () => {
-        location = p5.loadImage("/src/asset/location.png");
+        location = p5.loadImage("/pathfinding_visualizer/src/asset/location.png");
     }
 
     // p5.mySelectEvent = () => {
