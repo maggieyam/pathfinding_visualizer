@@ -93,8 +93,8 @@ const sketch = (p5) => {
     }
 
     p5.preload = () => {
-        // location = p5.loadImage("/src/asset/location.png");
-        location = p5.loadImage("/pathfinding_visualizer/src/asset/location.png");
+        location = p5.loadImage("/src/asset/location.png");
+        // location = p5.loadImage("/pathfinding_visualizer/src/asset/location.png");
     }
 
     p5.mySelectEvent = () => {
@@ -156,7 +156,7 @@ const sketch = (p5) => {
         const row = Math.floor(p5.mouseY / size);
 
         if ((col < 0 || row < 0 || col >= COL  || row >= ROW ) ) return null;  
-        update(row, col, p5); 
+        update(row, col); 
     }
 
 }
@@ -166,7 +166,6 @@ const startGame = () => {
     if (start.length && end.length ) algorithmType();
 
 }
-
 
 const algorithmType = () => {
     let algorithm = sel.value();
@@ -189,7 +188,7 @@ const algorithmType = () => {
         }
 }
 
-const update = (row, col, p5) => {
+const update = (row, col) => {
     if (disable) return null;
     const vertex = vertices[row][col];
     if (!start.length) {
