@@ -14,7 +14,7 @@
 }
 
 .nav-left {
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .nav-right {
@@ -40,7 +40,7 @@ div.label {
     margin: 0 10px;
 }
 
-#start, .reset, .about {   
+#start, #start2, .reset, .reset2, .about {   
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
@@ -48,11 +48,11 @@ div.label {
     margin: 15px 10px;
 }
 
-#start:focus, .reset:focus{
+#start:focus, #start2, .reset:focus, .reset2:focus{
     outline: none;
 }
 
-#start, .reset{
+#start, #start2, .reset, .reset2{
     background-color: #d3d3d3;
     border: none;
     border-radius: 16px;
@@ -60,7 +60,7 @@ div.label {
     height: 36px;
 }
 
-#start {
+#start2, #start {
     background-color: #E60023;
     color: #fff;
 }
@@ -140,5 +140,16 @@ i.fa-linkedin{
     color: red;
 }
 
+.location {
+    width: 20px;
+    height: 20px;
+}
 
+#note {
+    margin: 0;
+    color: #E60023;
+}
 
+h3#header {
+    margin-top: 0;
+}

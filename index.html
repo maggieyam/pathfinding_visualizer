@@ -73,18 +73,19 @@
             different algorithmic paths throughout the
         search process.</p>
         <div class="instruction"> 
-            <h3>To start a new game:</h3>
+            <h3 id="header">To start a new game:</h3>
+            <p id="note">Note: Please wait until the animation has end before resetting.</p>
             <ol>
                 <li>
                     <h3>Select an algorithm from the dropdown menu</h3>
                 </li>
             <img src="src/asset/select_algo.gif" class="gif"></img>
-            <!-- <select selected="selected" disabled class="select"><option>--Choose an Algrorithm-- </option></select>               -->
-            <!-- <li>Dijkstra's algorithm, A*, BFS and DFS</li> -->
+
             <h3>
-                <li>
-                    Click to place your start point. </br>
-                    Click the start point to deselect.
+                <li >
+                    <p id="start-point">Click to place  <i class="material-icons" style="padding: 0 5px;">trip_origin</i> (start point).</p>
+                    Click again to deselect.
+                    
                 </li>
                 <!-- <li>
                 </li> -->
@@ -92,24 +93,24 @@
             <img src="src/asset/start_point.gif" class="gif"></img>
             <h3>
                 <li>
-                    Click to place your end point.</br> 
-                    Click anywhere else to reset end point.
+                    <p>Click to place <img src="src/asset/location.png" class="location"/>  (end point).</p>
+                    Click on grid to reset end point.
                 </li>
             </h3>
             <h3>
                 <li>
-                    Click Start button to begin.
+                    Click <button id="start2">Start</button>
+                    to begin.
                 </li>
             </h3>
             <h3>
                 <li>
-                    Click Reset button to clear the canvas.
+                    Click <button class="reset2">Reset</button> to clear the canvas.</li></br>
+                    
                 </li>
             </h3>
-            </ol>
+            </ol>          
         </div>  
-        <!-- <button class="done">Done</button>    -->
-       
     </div>
 </body>
 </html>

@@ -54,22 +54,20 @@ const resetButton = (p5) => {
     });
 }
 
-
-const sketch = (p5) => { 
-    p5.setup = () => {    
-        p5.createCanvas(1775, 800);
-        p5.background(225);
-       
-        // DropDown on nav
+const styleNav = (p5) => {
+ // DropDown on nav
         sel = p5.select('#algorithm');
         sel.changed(p5.mySelectEvent);
 
         //start game button
         let start = p5.select('#start');    
-        start.mousePressed(() => startGame(p5));
+        start.mousePressed(() => startGame());
         
+        // to open instruction page
         let about = p5.select('.about');
         content = p5.select('#about-content');
+        
+        // close the instruction page
         let done = p5.select('.done')
         about.mousePressed(() => {
             content.show();
@@ -79,9 +77,17 @@ const sketch = (p5) => {
             content.hide();
             setTimeout(() => disable = false, 100);
         });
-        // mapSel(p5);
-        createVertex(p5);
-        resetButton(p5);  
+
+        resetButton(p5); 
+}
+
+const sketch = (p5) => { 
+    p5.setup = () => {    
+        p5.createCanvas(1775, 800);
+        p5.background(225);
+        styleNav(p5);           
+        createVertex(p5);        
+         // mapSel(p5);
     }
 
     p5.preload = () => {
@@ -94,7 +100,6 @@ const sketch = (p5) => {
         p5.redraw();
         vertices[start[0]][start[1]].isStart = true;
         vertices[end[0]][end[1]].isEnd = true;
-        // if (start.length && end.length) algorithmType(p5);
     }
 
     p5.draw = () => {
@@ -155,16 +160,14 @@ const sketch = (p5) => {
 }
 const newSketch = new p5(sketch);
 
-const startGame = (p5) => {   
-    if (start.length && end.length ) algorithmType(p5);
+const startGame = () => {   
+    if (start.length && end.length ) algorithmType();
 
 }
 
 
-const algorithmType = (p5) => {
+const algorithmType = () => {
     let algorithm = sel.value();
-    // let startPoint = vertices[start[0]][start[1]];
-    // let endPoint = vertices[end[0]][end[1]];
 
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
