@@ -4,11 +4,12 @@ import  Weighted  from "../algorithms/wighted";
 import BFS from '../algorithms/BFS';
 import DFS from '../algorithms/DFS';
 
+let innerWidth = window.innerWidth - 50;
+let innerHeight = window.innerHeight - 50;
+let size = 25;
+let ROW = Math.floor(innerHeight / size);
+let COL = Math.floor(innerWidth / size);
 
-const ROW = 32;
-const COL = 71;
-const WIDTH = 25;
-const HEIGHT = 25;
 let vertices = [];
 let vertex;
 let start = [];
@@ -81,10 +82,11 @@ const styleNav = (p5) => {
         resetButton(p5); 
 }
 
+
 const sketch = (p5) => { 
-    p5.setup = () => {    
-        p5.createCanvas(1775, 800);
-        p5.background(225);
+    p5.setup = () => {  
+        p5.createCanvas(COL * size, ROW * size);
+        // p5.background(225);
         styleNav(p5);           
         createVertex(p5);        
          // mapSel(p5);
@@ -108,41 +110,41 @@ const sketch = (p5) => {
                 const vertex = vertices[i][j];
                 if (vertex.isStart){
                     p5.fill(vertex.color);
-                    p5.rect(WIDTH * j, HEIGHT * i, WIDTH, HEIGHT); 
+                    p5.rect(size * j, size * i,  size, size); 
                     p5.fill('rgb(255, 61, 0)');
-                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH ); 
+                    p5.circle( size * j +  size / 2, size * i + size / 2,  size ); 
                     p5.fill('rgb(192, 0, 0)');
-                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH * 0.5); 
+                    p5.circle( size * j +  size / 2, size * i + size / 2,  size * 0.5); 
 
                 } else if (vertex.isEnd){
                     
                     // p5.fill(vertex.color);
                     // p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH ); 
-                    p5.image(location, WIDTH * j - 6, HEIGHT * i - 12, 30, 34)
+                    p5.image(location, size * j - 6, size * i - 12, 30, 34)
                     
                     // p5.rect(WIDTH * j, HEIGHT * i, WIDTH, HEIGHT); 
                 } else if (vertex.color === 'white') {
                     p5.fill(vertex.color);
-                    p5.rect(WIDTH * j, HEIGHT * i, WIDTH, HEIGHT);             
+                    p5.rect(size * j, size * i, size, size);             
                     p5.stroke(`rgb(179, 229, 252)`);
                 } else if (vertex.color === 'rgb(74, 20, 140)') {
                     p5.fill(vertex.color);
-                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH / 4);
+                    p5.circle(size * j + size / 2, size * i + size / 2, size / 4);
                     // p5.stroke(0);
                 } else if (vertex.color === 'rgb(94, 53, 177)'){
                     p5.fill(vertex.color);
-                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH / 1.75);
+                    p5.circle(size * j + size / 2, size * i + size / 2, size / 1.75);
                     p5.stroke(244, 247,250);
                 } else if (vertex.color === 'rgb(21, 101, 192)'){
                     p5.fill(vertex.color);
-                    p5.circle(WIDTH * j + WIDTH / 2, HEIGHT * i + HEIGHT / 2, WIDTH / 1.25);
+                    p5.circle(size * j + size / 2, size * i + size / 2, size / 1.25);
                     p5.stroke(244, 247,250);
                 } else if (vertex.color === 'rgb(83, 109, 254)' 
                     // || vertex.color === "rgb(255, 128, 178)"
                     || vertex.color === "rgb(77, 208, 225)"
                     || vertex.color === "yellow") {
                     p5.fill(vertex.color);
-                    p5.rect(WIDTH * j, HEIGHT * i, WIDTH, HEIGHT);
+                    p5.rect(size * j, size * i, size, size);
                     p5.stroke(244, 247,250);
                 } 
             }
@@ -150,8 +152,8 @@ const sketch = (p5) => {
     }
 
     p5.mousePressed = () => {
-        const col = Math.floor(p5.mouseX / WIDTH);
-        const row = Math.floor(p5.mouseY / HEIGHT);
+        const col = Math.floor(p5.mouseX / size);
+        const row = Math.floor(p5.mouseY / size);
 
         if ((col < 0 || row < 0 || col >= COL  || row >= ROW ) ) return null;  
         update(row, col, p5); 
