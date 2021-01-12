@@ -10,14 +10,14 @@ const DFS = (vertices, start, end) => {
         let vertex = considered.pop();
         visited.push(vertex);
         if (!vertex.visited) {
-            vertex.visited = true;
-            
+            vertex.visited = true;          
         }
 
         for(let i = vertex.edges.length - 1; i >= 0; i--) {
             let edge = vertex.edges[i];
             let [row, col] = edge.end;  
             let neighbor = vertices[row][col];
+            if (!neighbor) break;
             if (!neighbor.visited) considered.push(neighbor);
             
             if(neighbor.isEnd) {
@@ -27,6 +27,7 @@ const DFS = (vertices, start, end) => {
                     count += 1;
                 })
                 considered = [];
+                visited = [];
                 break;
             }
         }
