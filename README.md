@@ -4,6 +4,7 @@
 * Pathfinding is closely related to the shortest path problem, within graph theory, which examines how to identify the path that best meets some criteria (shortest, cheapest, fastest, etc) between two points in a large network.
 * This project visualize how each algorithm searches for the shortest path.
 
+
 ### Architecture and Technologies
 This project will be implemented with the following technologies:
 * `JavaScript` for main logic,
@@ -17,6 +18,7 @@ In addition to the entry file, there will be a few scripts involved in this proj
 `BFS.js`: this script will handle the logic of Breath First Search algorithm.
 `DFS.js`: this script will handle the logic of Depth First Search algorithm.
 
+
 ### Weighted searching algorithm
 
 * Dijkstra's Algorithm
@@ -26,6 +28,7 @@ In addition to the entry file, there will be a few scripts involved in this proj
   *  A* (pronounced "A-star") is a graph traversal and path search algorithm, which is often used in many fields of computer science due to its completeness, optimality, and optimal efficiency.
   
 ![](visualizer.gif)
+ 
  
 ##### Both Dijsktra's algorithm and A* used weighted graphs. In each game, I have randomly distributed cost to each vertex. Starting from a specific starting node of a graph, it aims to find a path to the given goal node having the smallest cost (least distance travelled, shortest time, etc.)
 
