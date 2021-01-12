@@ -1,5 +1,8 @@
 # pathfinding_visualizer
 
+### Description
+* Pathfinding is closely related to the shortest path problem, within graph theory, which examines how to identify the path that best meets some criteria (shortest, cheapest, fastest, etc) between two points in a large network.
+* This project visualize how each algorithm searches for the shortest path.
 
 ### Architecture and Technologies
 This project will be implemented with the following technologies:
