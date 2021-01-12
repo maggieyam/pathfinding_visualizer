@@ -36,8 +36,42 @@ In addition to the entry file, there will be a few scripts involved in this proj
 
 * A* 
   *  A* (pronounced "A-star") is a graph traversal and path search algorithm, which is often used in many fields of computer science due to its completeness, optimality, and optimal efficiency.
+  
+![](visualizer.gif)
  
-### Both Dijsktra's algorithm and A* used weighted graphs. In each game, I have randomly distributed cost to each vertex. Starting from a specific starting node of a graph, it aims to find a path to the given goal node having the smallest cost (least distance travelled, shortest time, etc.)
+##### Both Dijsktra's algorithm and A* used weighted graphs. In each game, I have randomly distributed cost to each vertex. Starting from a specific starting node of a graph, it aims to find a path to the given goal node having the smallest cost (least distance travelled, shortest time, etc.)
 
-![](visualizer.png)
+* To do that, I have build my own `Priority Queue` abstract data type. 
+  * To optimize the complexity of this algorithm, I will implememnt minheap to build the `Priority Queue`.
+
+```
+enqueue(ele) {
+   if (this.queue.includes(ele)) return false;
+   let isEnqueued = false;
+   for (let i = 0; i < this.queue.length; i++) {
+       const {cost, heuristic} = this.queue[i];
+       if(cost + heuristic >= ele.cost + ele.heuristic) {
+           this.queue.splice(i, 0, ele);
+           isEnqueued = true;
+           break;
+       }
+   }
+   if(!isEnqueued) this.queue.push(ele);
+   return true;
+ }
+
+ dequeue() {
+     if (this.queue.length === 0) return null;
+     return this.queue.shift();
+ }
+```
+* For A*, I have added `heuristic cost` that calculates the distance (as a cost)from the destination.
+```
+const heuristic = (vertex, end) => {
+    let dx = Math.abs(end[0] - vertex.pos[0]);
+    let dy = Math.abs(end[1] - vertex.pos[1]);
+    return dx + dy + (Math.sqrt(2) - 2) * Math.min(dx, dy);
+}
+```
+
  
