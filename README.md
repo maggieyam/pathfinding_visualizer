@@ -1,20 +1,5 @@
 # pathfinding_visualizer
 
-### Functionality & MVP
-* Select start point and end point
-* Choose different pathfinding algorithm
-* Choose different colors 
-* Set barriers
-
-In addition, this project will include:
-* An about page describing each of the searching method
-* A production README
-
-### Wireframes 
-
-This app will consist of a single screen with a grid board, drop-down button, and nav links to my Github and LinkedIn. 
-The drop-down allows users to select different pathfinding algorithm (eg. A*, Dijkstra, etc). On the right, several different 
-color theme (3-5), a start button. A multi-search (bubble search, merge search, etc) visualzor will be a bonum feature.
 
 ### Architecture and Technologies
 This project will be implemented with the following technologies:
