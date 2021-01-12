@@ -4,18 +4,18 @@ class PriorityQueue extends Array {
         this.queue = [];
     }
 
-    enqueue(ele) {
-        if (this.queue.includes(ele)) return false;
+    enqueue(vertex) {
+        if (this.queue.includes(vertex)) return false;
         let isEnqueued = false;
         for (let i = 0; i < this.queue.length; i++) {
             const {cost, heuristic} = this.queue[i];
-            if(cost + heuristic >= ele.cost + ele.heuristic) {
-                this.queue.splice(i, 0, ele);
+            if(cost + heuristic >= vertex.cost + vertex.heuristic) {
+                this.queue.splice(i, 0, vertex);
                 isEnqueued = true;
                 break;
             }
         }
-        if(!isEnqueued) this.queue.push(ele);
+        if(!isEnqueued) this.queue.push(vertex);
         return true;
     }
 
@@ -24,8 +24,8 @@ class PriorityQueue extends Array {
         return this.queue.shift();
     }
 
-    remove(ele) {
-        const idx = this.queue.IndexOf(ele);
+    remove(vertex) {
+        const idx = this.queue.IndexOf(vertex);
         this.queue.splice(idx, 1);
     }
 
