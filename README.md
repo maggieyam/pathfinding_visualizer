@@ -45,25 +45,25 @@ In addition to the entry file, there will be a few scripts involved in this proj
   * To optimize the complexity of this algorithm, I will implememnt minheap to build the `Priority Queue`.
 
 ```
-enqueue(ele) {
-   if (this.queue.includes(ele)) return false;
-   let isEnqueued = false;
-   for (let i = 0; i < this.queue.length; i++) {
-       const {cost, heuristic} = this.queue[i];
-       if(cost + heuristic >= ele.cost + ele.heuristic) {
-           this.queue.splice(i, 0, ele);
-           isEnqueued = true;
-           break;
-       }
-   }
-   if(!isEnqueued) this.queue.push(ele);
-   return true;
- }
+enqueue(vertex) {
+    if (this.queue.includes(vertex)) return false;
+    let isEnqueued = false;
+    for (let i = 0; i < this.queue.length; i++) {
+        const {cost, heuristic} = this.queue[i];
+        if(cost + heuristic >= vertex.cost + vertex.heuristic) {
+            this.queue.splice(i, 0, vertex);
+            isEnqueued = true;
+            break;
+        }
+    }
+    if(!isEnqueued) this.queue.push(vertex);
+    return true;
+}
 
- dequeue() {
-     if (this.queue.length === 0) return null;
-     return this.queue.shift();
- }
+dequeue() {
+    if (this.queue.length === 0) return null;
+    return this.queue.shift();
+}
 ```
 * For A*, I have added `heuristic cost` that calculates the distance (as a cost)from the destination.
 ```
