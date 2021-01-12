@@ -20,32 +20,24 @@ color theme (3-5), a start button. A multi-search (bubble search, merge search, 
 This project will be implemented with the following technologies:
 * `JavaScript` for main logic,
 * `p5.js` with `HTML5` for effect rendering,
-* `Browserify` to bundle js files.
 
 In addition to the entry file, there will be a few scripts involved in this project:
 
-`board.js`: this script will handle the logic for rendering elements on DOM.
+`sketch.js`: this script will handle the logic for rendering elements on DOM.
 `Dijkstra.js`: this script will handle the logic of Dijkstra's algorithm.
 `A*.js`: this script will handle the logic of A* algorithm.
 `BFS.js`: this script will handle the logic of Breath First Search algorithm.
 `DFS.js`: this script will handle the logic of Depth First Search algorithm.
 
-### Implementation Timeline
- **Day1**: Setup `P5.js` and `Browserify`. Write basic entry file and the bare bones of `board.js` and `Dijkstra.js`.
-  * Draw the grid on canvas and learn more about `P5.js`.
-  
- **Day2**: Start to build Diajsktra's algorithm and render it on `HTML5`. 
-  * Complete `Dijkstra.js` module
-  * Make each square clickable and be able to set start and end points.
-  
- **Day3**: Style my page and add colors to my visualizer. For any node is visited, should change their colors for visualization.
+### Weighted searching algorithm
+
+* Dijkstra's Algorithm
+  * Dijkstra's algorithm is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks
+
+* A* 
+  *  A* (pronounced "A-star") is a graph traversal and path search algorithm, which is often used in many fields of computer science due to its completeness, optimality, and optimal efficiency.
  
- **Day 4**: Add more Algorithms.
- * Study more about A* 
- 
- **Day 5**: Add BFS and DFS
- 
- ### Bonus
- * Add animation
- * Add sorting algorithm 
+### Both Dijsktra's algorithm and A* used weighted graphs. In each game, I have randomly distributed cost to each vertex. Starting from a specific starting node of a graph, it aims to find a path to the given goal node having the smallest cost (least distance travelled, shortest time, etc.)
+
+
  
