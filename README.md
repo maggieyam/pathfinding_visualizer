@@ -39,5 +39,5 @@ In addition to the entry file, there will be a few scripts involved in this proj
  
 ### Both Dijsktra's algorithm and A* used weighted graphs. In each game, I have randomly distributed cost to each vertex. Starting from a specific starting node of a graph, it aims to find a path to the given goal node having the smallest cost (least distance travelled, shortest time, etc.)
 
-
+![](visualizer.png)
  
