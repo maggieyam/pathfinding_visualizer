@@ -65,7 +65,7 @@ dequeue() {
     return this.queue.shift();
 }
 ```
-* For A*, I have added `heuristic cost` that calculates the distance (as a cost)from the destination.
+* For A*, I have added `heuristic cost` that calculates the distance (as a cost) from the destination.
 ```
 const heuristic = (vertex, end) => {
     let dx = Math.abs(end[0] - vertex.pos[0]);
