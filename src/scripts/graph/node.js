@@ -1,6 +1,6 @@
 
   
-import { map1, map2 } from '../utils/mapUtil';
+// import { map1, map2 } from '../utils/mapUtil';
 const ROW = 32;
 const COL = 71;
 const POS = [
