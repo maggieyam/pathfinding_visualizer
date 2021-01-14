@@ -36,8 +36,7 @@ div.label {
     align-items: center;
     justify-content: space-evenly;
     font-family: Arial, Helvetica, sans-serif;
-    padding-right:  10px;
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
 #start, #start2, .reset, .reset2, .about {   
@@ -80,7 +79,7 @@ select {
     font-family: Arial, Helvetica, sans-serif;
     text-indent: 6px;
     text-align: center;
-    margin-right: 10px;
+    margin: 0 10px;
     border: none;
     box-shadow: 0 0 4pt 4pt #4a8ad4;
     option {
@@ -137,6 +136,7 @@ i.fa-linkedin{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
     padding: 20px 0;
+    margin-right: 5px;
     color: red;
 }
 
@@ -152,4 +152,10 @@ i.fa-linkedin{
 
 h3#header {
     margin-top: 0;
+}
+
+@media only screen and (max-width: 910px) {
+    div.label {
+        display: none;
+    }
 }
