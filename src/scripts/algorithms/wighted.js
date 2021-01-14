@@ -2,7 +2,7 @@
 
 
 import PriorityQueue from '../utils/priorityQueue';
-
+  
 const Weighted = (vertices, start, end, type) => {
     const pqueue = new PriorityQueue();
     let [row, col] = start;
@@ -24,8 +24,7 @@ const Weighted = (vertices, start, end, type) => {
             break
         };
         updateQueue(vertex, vertices, pqueue, considered, end, type);
-    }
-    
+    }  
 }
 
 const heuristic = (vertex, end) => {
@@ -55,26 +54,31 @@ const findPath = ( vertex, count ) => {
             vertex.color = 'yellow'; 
         }, 1 * count);
     })
+    let reset = document.querySelector('.reset');
+    setTimeout(() => {
+        reset.disabled = false;
+        reset.style.color = 'black';
+    }, 1 * count);
 }
 
-const animation = (vertex, count) => {    
-    return setTimeout(()=> {
-            if (vertex.color === 'white') {
-                // vertex.color = 'rgb(74, 20, 140)';
-                
-            // } else if (vertex.color === 'rgb(74, 20, 140)') {
-                // vertex.color = 'rgb(94, 53, 177)';
-
-            // } else if (vertex.color === 'rgb(94, 53, 177)') {
-                // vertex.color = 'rgb(21, 101, 192)';
-
-            // } else if (vertex.color === 'rgb(21, 101, 192)'){
-                vertex.color = 'rgb(83, 109, 254)';
+const animation = (vertex, count) => { 
+    setTimeout(()=> {
+        if (vertex.color === 'white') {
+            // vertex.color = 'rgb(74, 20, 140)';
             
-            } else if (vertex.visited) {
-                vertex.color = "rgb(77, 208, 225)";
-                // vertex.color = "rgb(255, 233, 182)";
-            } 
+        // } else if (vertex.color === 'rgb(74, 20, 140)') {
+            // vertex.color = 'rgb(94, 53, 177)';
+
+        // } else if (vertex.color === 'rgb(94, 53, 177)') {
+            // vertex.color = 'rgb(21, 101, 192)';
+
+        // } else if (vertex.color === 'rgb(21, 101, 192)'){
+            vertex.color = 'rgb(83, 109, 254)';
+        
+        } else if (vertex.visited) {
+            vertex.color = "rgb(77, 208, 225)";
+            // vertex.color = "rgb(255, 233, 182)";
+        } 
                  
     }, 1 * count); 
 }
@@ -84,7 +88,7 @@ const updateQueue = (vertex, vertices, pqueue, considered, end, type) => {
         let [row, col] = edge.end;  
         let neighbor = vertices[row][col];
         // if(neighbor.visited) continue;
-
+        if (!neighbor) continue;
         if (neighbor.visted || pqueue.includes(neighbor)) continue; 
         considered.push(neighbor);
         let cost = edge.weight + vertex.cost;

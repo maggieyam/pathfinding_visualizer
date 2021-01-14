@@ -36,6 +36,12 @@ const findPath = (vertex, count) => {
     path.map(vertex => {
         setTimeout(() => vertex.color = 'yellow', count * 10)
     })
+    
+    let reset = document.querySelector('.reset');
+    setTimeout(() => {
+        reset.disabled = false;
+        reset.style.color = 'black';
+    }, 10 * count);
 
 }
 

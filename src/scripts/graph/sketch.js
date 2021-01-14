@@ -9,7 +9,6 @@ let innerHeight = window.innerHeight - 50;
 let size = 25;
 let ROW = Math.floor(innerHeight / size);
 let COL = Math.floor(innerWidth / size);
-
 let vertices = [];
 let vertex;
 let start = [];
@@ -18,6 +17,7 @@ let sel;
 let location;
 let content;
 let disable = true;
+let reset = 0;
 const createVertex = (p5) => {
     for (let i = 0; i < ROW; i++){
         const arr = [];
@@ -43,15 +43,17 @@ const createVertex = (p5) => {
 //     // sel.parent(nav);
 
 // }
-
+export const resetGame = (p5) => {
+    resetGrid();
+    p5.redraw();
+    start = [];
+    end = [];
+}
 
 const resetButton = (p5) => {
-    const reset = p5.select('.reset');
+    reset = p5.select('.reset');
     reset.mousePressed(() => {
-        resetGrid();
-        p5.redraw();
-        start = [];
-        end = [];
+        resetGame(p5);
     });
 }
 
@@ -63,6 +65,7 @@ const styleNav = (p5) => {
         //start game button
         let start = p5.select('#start');    
         start.mousePressed(() => {
+            
             p5.mySelectEvent();
             startGame();
         });
@@ -166,14 +169,14 @@ const sketch = (p5) => {
 const newSketch = new p5(sketch);
 
 const startGame = () => { 
-    debugger
     if (start.length && end.length ) algorithmType();
-
 }
 
 const algorithmType = () => {
     let algorithm = sel.value();
-
+    let reset = document.querySelector('.reset');
+        reset.disabled = true;
+        reset.style.color = '#767676';
         switch (algorithm) {
             case 'Dijkstra\'s algorithm':
                 Weighted(vertices, start, end, 'Dijkstra');
@@ -189,7 +192,7 @@ const algorithmType = () => {
                 break;
             default:
                 break;
-        }
+            }
 }
 
 const update = (row, col) => {
@@ -217,7 +220,7 @@ const update = (row, col) => {
    
 }
 
-const resetGrid = () => {
+export const resetGrid = () => {
     if (!vertices.length) return null;
     for (let i = 0; i < ROW; i++){
         for (let j = 0; j < COL; j++) {

@@ -26,6 +26,11 @@ const DFS = (vertices, start, end) => {
                     setTimeout(() => vertex.color = 'yellow', 10 * count);
                     count += 1;
                 })
+                 let reset = document.querySelector('.reset');
+                setTimeout(() => {
+                    reset.disabled = false;
+                    reset.style.color = 'black';
+                }, 10 * count);
                 considered = [];
                 visited = [];
                 break;
