@@ -62,7 +62,10 @@ const styleNav = (p5) => {
 
         //start game button
         let start = p5.select('#start');    
-        start.mousePressed(() => startGame());
+        start.mousePressed(() => {
+            p5.mySelectEvent();
+            startGame();
+        });
         
         // to open instruction page
         let about = p5.select('.about');
@@ -162,7 +165,8 @@ const sketch = (p5) => {
 }
 const newSketch = new p5(sketch);
 
-const startGame = () => {   
+const startGame = () => { 
+    debugger
     if (start.length && end.length ) algorithmType();
 
 }
